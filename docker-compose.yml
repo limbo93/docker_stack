@@ -13,8 +13,8 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
-      - "30080:80"
-      - "38080:8080"
+      - "30070:80"
+      - "37070:8080"
     networks:
      - net
     deploy:
