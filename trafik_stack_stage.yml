@@ -1,0 +1,44 @@
+version: '3'
+
+ 
+services:
+ traefik:
+    image: traefik:latest
+    command: --web \
+      --docker \
+      --docker.swarmmode \
+      --docker.domain=traefik2 \
+      --docker.watch \
+      --logLevel=DEBUG
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "4200:80"
+      - "49080:8080"
+    networks:
+     - net
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+          
+ ps-social-ui:
+    image: 'sp-social-ui:latest'
+    deploy:
+     labels:
+       - "traefik.enable=true"
+       - "traefik.docker.network=net"
+       - "traefik.frontend.rule=PathPrefix:/sp"
+       - "traefik.port=80"
+     replicas: 1
+     restart_policy:
+      condition: on-failure
+     placement:
+      constraints:
+        - node.role == manager
+    networks:
+     - net
+          
+networks:
+ net:
+
