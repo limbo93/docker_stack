@@ -6,7 +6,7 @@ services:
   ports:
     - 443:443
   volumes:
-    - /srv/registry/nginx/:/etc/nginx/conf.d
+    - /home/limbo/docker-registry/nginx/:/etc/nginx/conf.d
  
  registry:
   image: registry:2
@@ -15,7 +15,7 @@ services:
   environment:
     REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data
   volumes:
-    - /srv/registry/data:/data
+    - /home/limbo/docker-registry/data:/data
 
 
 # https://www.digitalocean.com/community/tutorials/how-to-set-up-a-private-docker-registry-on-ubuntu-14-04#step-2-%E2%80%94-installing-and-configuring-the-docker-registry
