@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+ nginx:
+  image: "nginx:1.9"
+  ports:
+    - 443:443
+  volumes:
+    - /srv/registry/nginx/:/etc/nginx/conf.d
+ 
+ registry:
+  image: registry:2
+  ports:
+    - 127.0.0.1:5000:5000
+  environment:
+    REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data
+  volumes:
+    - /srv/registry/data:/data
+
+
+# https://www.digitalocean.com/community/tutorials/how-to-set-up-a-private-docker-registry-on-ubuntu-14-04#step-2-%E2%80%94-installing-and-configuring-the-docker-registry
